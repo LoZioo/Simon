@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="./doc/css/installation.css" type="text/css">
+    <title> Guida utente </title>
+  </head>
+  
+  <body>
+    <a name="top" id="top"></a>
+    <table cellpadding=10>
+      <tr>
+        <th colspan=2> Guida alla configurazione e all'uso del progetto gioco del Simon, versione 1.0 </th>
+      </tr>
+      
+      <tr>
+        <td>
+          <b>Introduzione al gioco Simon</b>
+          <br>
+          <br>&emsp;Simon &egrave; un gioco elettronico multimediale che interagisce con il giocatore.
+          <br>&emsp;Nella versione classica del gioco abbiamo davanti un grande disco in plastica munito di 4 grossi pulsanti colorati.
+          <br>&emsp;Un nome alternativo di Simon &egrave; proprio "Simon says" richiamando cos&igrave; all'attenzione del giocatore le caratteristiche del gioco:
+          <br>&emsp;i pulsanti cominciano ad accendersi seguendo una dinamica casuale e per ogni pulsante viene emessa anche una nota. La sequenza
+          <br>&emsp;di suoni emessi in combinazione con le luci d&agrave; vita ad una melodia che i giocatori sono chiamati a memorizzare. Una volta terminata
+          <br>&emsp;la sequenza di luci e colori, infatti, al giocatore spetter&agrave; l'arduo compito di riprodurla in maniera del tutto identica,
+          <br>&emsp;premendo quindi i tasti in sequenza. Se riuscir&agrave; nell'impresa, la situazione si far&agrave; ancora pi&ugrave; complicata e alla sequenza gi&agrave; presentata
+          <br>&emsp;si aggiungeranno altre ulteriori parti di melodia, corrispondenti come sempre all'accensione e spegnimento dei grandi pulsanti colorati.
+          <br>&emsp;&Egrave; possibile comunque prendere appunti sul colore dei pulsanti che si susseguono nell'accensione uno dopo l'altro.
+          
+          <br><br>
+          &emsp;Link utili:
+          <br>&emsp;&emsp;<a href="https://iogames.studenti.it/come-giocare-a-simon-441546.html#steps_0"><b>Come giocare a Simon</b></a>
+          <br>&emsp;&emsp;<a href="https://it.wikipedia.org/wiki/Simon_(gioco)"><b>Wikipedia</b></a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <b>Prerequisiti:</b>
+          <br><br>
+          &emsp;1) Sistema operativo Windows, Linux o Mac OSX (o altri, basta che siano ufficialmente supportati dall'IDE di <a href="https://www.arduino.cc/">Arduino</a>)
+          <br>
+          &emsp;2) Scheda Arduino (Uno, Nano, Mega ecc ecc.) con cavo USB per la comunicazione con il PC
+          <br>
+          &emsp;&emsp;Attenzione alle schede che lavorano a 3,3v come Due, Zero ecc ecc. Per queste ultime la procedura non verra' illustrata.
+          <br>
+          &emsp;3) Condensatore elettrolitico da 10uf
+          <br>
+          &emsp;4) Una breadboard
+          <br>
+          &emsp;5) Dei fili da usare per connettere la scheda Arduino all'Attiny84
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <b>Preparazione:</b>
+          <br><br>
+          &emsp;1) Se dopo aver collegato tale scheda al pc, non viene riconosciuta, e' possibile seguire <a href="http://www.logicaprogrammabile.it/installare-arduino-uno-passo-passo/">questa</a>
+          guida per installare i driver necessari.
+          <br>&emsp;&emsp;<b>Attenzione</b> alle schede che lavorano a 3,3v come Due, Zero ecc ecc. Per queste ultime la procedura non verra' illustrata.
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          &emsp;2) Una volta aperta l'IDE di Arduino, scaricabile a <a href="https://www.arduino.cc/en/Main/Software">questo</a> link, ed aver connesso la scheda, sara' necessario
+          installare il microcontrollore Attiny84 dal menu' <br>&emsp;&emsp; <b>Strumenti</b> > <b>Scheda</b> > <b>Gestore schede...</b>&nbsp; Il nome della libreria e'
+          <a href="https://github.com/SpenceKonde/ATTinyCore"><b>ATTinyCore</b></a> by Spence Konde.
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          &emsp;3) Se non viene trovata nessuna libreria nel gestore schede, sara' necessario recarsi su <b>File</b> > <b>Impostazioni...</b> > <b>URL aggiuntive per il Gestore schede</b>
+          <br>&emsp;&emsp; ed incollare il seguente link: <i>http://drazzy.com/package_drazzy.com_index.json</i>. Confermare le impostazioni e rieseguire il passo 2.
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          &emsp;4) Una volta installata la libreria ed aver collegato il vostro Arduino al PC, bisognera' programmare l'Arduino in modo da essere usato come un programmatore
+          <br>&emsp;&emsp; che come target, a sua volta, ha l'Attiny84. Per fare questo occorrera' andare a cercare tra gli esempi lo sketch ArduinoISP. Apritelo e caricatelo sul vostro Arduino
+          <br>&emsp;&emsp; senza modificare niente.
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          &emsp;5) Per implementare la comunicazione tra l'Arduino e l'Attiny85, dovremo collegare i 3 pin dell'interfaccia SPI (MISO, MOSI ed SCK)
+          <br>&emsp;&emsp; dall'Arduino all'Attiny85 piu' il pin 10 dell'Arduino al pin reset dell'Attiny85.
+          <br>&emsp;&emsp; Successivamente dovremo mettere un condensatore da 10uf <b>OBBLIGATORIO</b> tra il pin reset dell'arduino ed il gnd. Infine, collegare i 5v all'Attiny85.
+          <br>&emsp;&emsp; (Attenzione: i condensatori elettrolitici sono polarizzati, quindi, attenzione a collegarlo nel verso giusto)
+          <br>&emsp;&emsp; <img border=1 src="./doc/html/img/Attiny84.jpg" width="100%" alt="Not found">
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          &emsp;6) Adesso dovremo riconfigurare il compilatore dell'IDE in modo da utilizzare l'Arduino non come target, ma come programmatore:
+          <br>&emsp;&emsp; apriamo il menu' Strumenti e selezioniamo i seguenti parametri:
+          <br><br>&emsp;&emsp;&emsp; <b>Scheda:</b> ATtiny 24/44/84
+          <br>&emsp;&emsp;&emsp; <b>Chip:</b> ATtiny84
+          <br>&emsp;&emsp;&emsp; <b>Clock:</b> 8Mhz (Internal)
+          <br>&emsp;&emsp;&emsp; <b>Porta:</b> La porta di collegamento dell'Arduino
+          <br>&emsp;&emsp;&emsp; <b>Programmatore:</b> Arduino as ISP
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          &emsp;7) Come ultimo passo, clicchiamo, sempre dal menu' Strumenti, il tasto Scrivi il bootloader.
+          <br>&emsp;&emsp; Se tutto e' andato a buon fine, allora siamo pronti a programmare il chip come una normalissima scheda Arduino!
+        </td>
+      </tr>
+      
+      
+      
+      <tr>
+        <td>
+          <b>Programmazione del microcontrollore:</b>
+          <br><br>
+          &emsp;Una volta eseguiti i passi precedenti, sara' necessario caricare lo <a href="./src/Simon_10/Simon_10.ino">sketch</a> nel microcontrollore, ma prima sara' necessario
+          <br>&emsp;<i>EEPROM.write(0,4);</i> //Programmare per la prima volta con questa istruzione, poi ricommentarla.
+        </td>
+      </tr>
+      
+      
+      
+      <tr>
+        <td>
+          <b>Assemblaggio del circuito:</b>
+          <br><br>
+          &emsp;Per assemblare il circuito, si puo' fare riferimento alla seguente immagine, che rappresenta lo schema circuitale con cui sono andato a realizzare il prototipo:
+          <br><br>&emsp;&emsp; <img border=1 src="./doc/html/img/Circuito.jpg" width="50%" alt="Not found">
+        </td>
+      </tr>
+      
+      
+      
+      <tr>
+        <td>
+          <b>Note finali:</b>
+          <br><br>
+          &emsp;Il risultato finale dovrebbe essere un oggetto di questo tipo.
+          <br>&emsp;l'immagine sottostante mette anche a confronto la versione originale del gioco (a destra) con la versione da me progettata (a sinistra):
+          <br><br>&emsp;&emsp; <img border=1 src="./doc/html/img/Confronto.jpg" width="75%" alt="Not found">
+        </td>
+      </tr>
+      
+      
+      <tr>
+        <td>
+          <br><b>Link utili:</b> <a href="installation.html">Note d'installazione</a> | <a href="release_note.html">Note di rilascio</a> | <a href="./index.html">Home</a> | <a href="#top">Torna su</a>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

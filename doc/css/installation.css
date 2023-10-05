@@ -1,0 +1,23 @@
+body{
+  background: rgb(238,255,238);
+}
+
+table{
+  position: relative;
+  width: 100%;
+}
+
+th{
+  width: 100%;
+  text-align: center;
+  font-size: 40px;
+  color: #FF0000;
+}
+
+td.a{
+  text-align: center;
+}
+
+td{
+  font-size: 20px;
+}
